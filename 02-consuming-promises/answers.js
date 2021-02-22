@@ -1,13 +1,12 @@
 /**
  * 
  * EXERCISE 1
- * 
  * @param {Promise} promise
  * @param {thunk} action
  * 
  */
 function waitForPromise(promise, action){
-  /* IMPLEMENT ME */
+  return promise.then(action);
 }
 /**
  * 
@@ -18,7 +17,7 @@ function waitForPromise(promise, action){
  * @param {handler} handler 
  */
 function consumePromise(promise, consumer, handler){
-  /* IMPLEMENT ME! */
+  promise.then(consumer).catch(handler);
 }
 
 /**

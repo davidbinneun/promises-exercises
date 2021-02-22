@@ -8,7 +8,15 @@
  */
 function mapPromise(promise, transformer){
   return new Promise((resolve, reject) => {
-    /* IMPLEMENT ME!! */
+    promise.then(value => { 
+     try{
+       let result = transformer(value);
+       resolve(result);
+     } catch(error) {
+       reject(error)
+     };
+    })
+    .catch(error => reject(error))
   });
 }
 
@@ -19,9 +27,20 @@ function mapPromise(promise, transformer){
  * @param {Promise<number | string>} numberPromise 
  * @returns {Promise<number>}
  */
+
+
+ 
 function squarePromise(numberPromise){
   return numberPromise
-    .then(/* IMPLEMENT ME! */);
+  .then(value => {
+    if(!isNaN(value)){
+      let newNumber = Number(value);
+      return newNumber*newNumber
+    } else {
+     throw `Cannot convert '${value}' to a number!`;
+    };
+  })
+  .catch(error => {throw error});
 }
 
 /**
@@ -32,7 +51,7 @@ function squarePromise(numberPromise){
  */
 function squarePromiseOrZero(promise){
   return squarePromise(promise)
-    .catch(/* IMPLEMENT ME! */);
+    .catch(promise => 0);
 }
 
 /**
@@ -42,8 +61,10 @@ function squarePromiseOrZero(promise){
  * @returns {Promise}
  */
 function switcheroo(promise){
-  return promise.then(/* IMPLEMENT ME */);
+  return promise.then(error => {throw error}, promise => promise); 
 }
+
+
 
 /**
  * @callback consumer
@@ -53,7 +74,7 @@ function switcheroo(promise){
 /**
  * @callback handler
  * @param {*} error
- */
+ */;
 
 module.exports = {
   mapPromise,
